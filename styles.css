@@ -1,0 +1,602 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
+
+:root {
+    --forest-green: #1b3524;
+    --leaf-green: #2d5a3c;
+    --wood-warm: #8a5734;
+    --sand-bg: #f5f2eb;
+    --card-white: rgba(255, 255, 255, 0.94); /* ขาวโปร่งแสงเล็กน้อยให้เห็นพื้นหลังจางๆ */
+    --text-dark: #2c3530;
+    --text-muted: #647067;
+    --border-color: #e5dfd2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===================================================
+   1. Smooth Scroll เมื่อคลิก Anchor Link (เช่น #songs, #about)
+   =================================================== */
+html {
+    scroll-behavior: smooth; /* เลื่อนหน้าจอแบบนุ่มนวล */
+}
+
+/* ป้องกัน Navbar ที่ติดขอบบน (Sticky) บังหัวข้อตอนเลื่อนลงมา */
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+/* ===================================================
+   2. ระบบ CSS Grid Responsive สำหรับการ์ด
+      - Desktop (จอใหญ่ > 992px) : แสดง 4 การ์ดในแถวเดียว
+      - Tablet (768px - 992px)   : แสดง 2 การ์ดต่อแถว
+      - Mobile (จอเล็ก < 768px)  : แสดง 1 การ์ดต่อแถว
+   =================================================== */
+
+/* ค่าเริ่มต้น: Desktop (จอคอมพิวเตอร์ทั่วไป แสดง 4 คอลัมน์) */
+.playlist-grid,
+.social-channels,
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 การ์ดต่อแถว */
+    gap: 20px;
+    width: 100%;
+}
+
+/* Tablet (แท็บเล็ต / จอขนาดกลาง ความกว้างไม่เกิน 992px) */
+@media screen and (max-width: 992px) {
+    .playlist-grid,
+    .social-channels,
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 การ์ดต่อแถว */
+        gap: 16px;
+    }
+}
+
+/* Mobile (สมาร์ตโฟน / จอย่อเล็ก ความกว้างไม่เกิน 768px) */
+@media screen and (max-width: 768px) {
+    .playlist-grid,
+    .social-channels,
+    .cards-grid {
+        grid-template-columns: 1fr; /* 1 การ์ดต่อแถว (เต็มจอ) */
+        gap: 14px;
+    }
+
+    /* ปรับแต่งระยะห่างให้อ่านง่ายบนจอมือถือ */
+    .container {
+        padding: 0 15px;
+    }
+
+    .card {
+        padding: 20px 16px;
+    }
+}
+
+/* ตั้งค่าพื้นหลังเว็บด้วยรูป ปก.webp พร้อมการเคลือบโทนสีอ่อนให้อ่านง่าย */
+body {
+    font-family: 'Prompt', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.8;
+    background-color: var(--sand-bg);
+    background-image: 
+        linear-gradient(rgba(245, 242, 235, 0.92), rgba(245, 242, 235, 0.92)), 
+        url('ปก.webp');
+    background-repeat: repeat;
+    background-size: 260px;
+    background-attachment: fixed; /* ตรึงพื้นหลังให้อยู่กับที่ขณะเลื่อนหน้า */
+}
+
+/* Headings */
+h1, h2, h3, .logo-text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--forest-green);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    background: rgba(248, 246, 240, 0.96);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-wrap {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 10px;
+}
+
+.nav-logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.navbar nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.navbar nav a:hover {
+    color: var(--wood-warm);
+}
+
+/* Hero Section (ใช้ภาพ par-t.webp เป็นฉากหลังหลัก) */
+.hero {
+    background: 
+        linear-gradient(rgba(20, 36, 26, 0.55), rgba(20, 36, 26, 0.7)),
+        url('par-t.webp') center 25% / cover no-repeat;
+    color: #ffffff;
+    text-align: center;
+    padding: 120px 20px 100px;
+}
+
+.hero-tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #e0cfb3;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.hero h1 {
+    font-size: 52px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.hero-sub {
+    font-size: 16px;
+    color: #e6ede8;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--wood-warm);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #6f4225;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn-outline:hover {
+    background: #ffffff;
+    color: var(--forest-green);
+}
+
+/* Container & Cards */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background-color: var(--card-white);
+    border-radius: 18px;
+    padding: 35px;
+    margin-bottom: 35px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.card-heading {
+    font-size: 28px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #eef2ed;
+    padding-bottom: 10px;
+}
+
+.lead-text {
+    font-size: 16px;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+}
+
+/* Reason Grid */
+.reason-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.reason-item {
+    background: #faf8f4;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 22px;
+}
+
+.reason-icon {
+    font-size: 26px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.reason-item h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.reason-item p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+}
+
+/* Profile Section (ใช้รูป 111.jfif) */
+.profile-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 30px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.profile-img-wrap {
+    text-align: center;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(27, 53, 36, 0.15);
+    display: block;
+}
+
+.label-badge {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    background: #edf3ee;
+    color: var(--forest-green);
+    padding: 4px 14px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.profile-details p {
+    font-size: 14.5px;
+    margin-bottom: 12px;
+}
+
+/* Gallery Section (ใช้รูป 222.jfif และ 333.jfif) */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.gallery-item {
+    background: #faf8f4;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.photo-caption {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Playlist Grid */
+.section-subtext {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.song-box {
+    background: #faf8f4;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.song-box.featured {
+    border: 1.5px solid var(--leaf-green);
+    background: #fbfdfb;
+}
+
+.song-tag {
+    font-size: 11px;
+    color: var(--leaf-green);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.song-box h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.publisher {
+    font-size: 12px;
+    color: var(--wood-warm);
+    margin-bottom: 12px;
+}
+
+.lyric-snippet {
+    font-size: 13.5px;
+    font-style: italic;
+    background: #f1ede3;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+.song-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.btn-listen {
+    background: var(--forest-green);
+    color: #ffffff;
+    font-size: 12.5px;
+    padding: 8px 16px;
+    align-self: flex-start;
+}
+
+.btn-listen:hover {
+    background: var(--wood-warm);
+}
+
+/* Social Channels */
+.social-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.channel-card {
+    display: block;
+    padding: 14px 18px;
+    background: #faf8f4;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--forest-green);
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.channel-card strong {
+    display: block;
+    font-size: 14px;
+}
+
+.channel-card span {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.channel-card:hover {
+    background: var(--forest-green);
+    color: #ffffff;
+    border-color: var(--forest-green);
+}
+
+.channel-card:hover span {
+    color: #dbe4dd;
+}
+
+/* Footer */
+footer {
+    background: #18281d;
+    color: #b5c2b9;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    font-size: 13px;
+}
+
+.footer-logo-img {
+    height: 45px;
+    filter: invert(1) brightness(1.5); /* ปรับโลโก้สีดำให้เป็นสีขาวสว่างบนพื้นหลังมืด */
+    margin-bottom: 12px;
+}
+
+.footer-title {
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 6px;
+}
+
+.footer-credit {
+    margin-bottom: 12px;
+}
+
+.top-link {
+    color: #e0cfb3;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+    .profile-photo {
+        height: 220px;
+    }
+    .hero h1 {
+        font-size: 38px;
+    }
+}
+/* --- Social Section Styling คุมโทนธรรมชาติ/เอิร์ธโทน --- */
+.social-box {
+    text-align: center;
+}
+
+.social-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 25px;
+}
+
+/* ปุ่ม Social Pill ปรับเป็นกล่องแคปซูลที่มีมิติและเรียบหรู */
+.social-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background-color: #faf8f4;
+    border: 1px solid var(--border-color, #e5dfd2);
+    border-radius: 40px; /* ทรงแคปซูลมน */
+    text-decoration: none;
+    color: var(--forest-green, #1b3524);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ข้อความด้านใน */
+.social-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.platform-name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.handle-name {
+    font-size: 12px;
+    color: var(--text-muted, #647067);
+    transition: color 0.3s ease;
+}
+
+/* ไอคอนสัญลักษณ์ */
+.social-icon {
+    font-size: 18px;
+    width: 34px;
+    height: 34px;
+    background-color: #ede7dc;
+    color: var(--forest-green, #1b3524);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* ลูกศรขวาสุด */
+.arrow-icon {
+    font-size: 16px;
+    color: var(--border-color, #c8c0b2);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* เอฟเฟกต์เมื่อ Hover (เมาส์ชี้) */
+.social-pill:hover {
+    background-color: var(--forest-green, #1b3524);
+    color: #ffffff;
+    border-color: var(--forest-green, #1b3524);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(27, 53, 36, 0.2);
+}
+
+.social-pill:hover .handle-name {
+    color: #dbe4dd;
+}
+
+.social-pill:hover .social-icon {
+    background-color: var(--wood-warm, #8a5734);
+    color: #ffffff;
+}
+
+.social-pill:hover .arrow-icon {
+    color: #ffffff;
+    transform: translate(2px, -2px);
+}
